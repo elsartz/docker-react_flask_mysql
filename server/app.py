@@ -86,5 +86,8 @@ def create_app(test_config=None):
     # db.session.commit()
     return jsonify({'message': 'note deleted successfully'})
 
-  return app
+
+  
+
+  return app.run(debug=True, host='0.0.0.0:5000')
 
