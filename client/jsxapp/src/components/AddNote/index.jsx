@@ -1,18 +1,24 @@
 import React from "react";
-import axios from 'axios';
+import { Input, InputLabel, TextField, FormControl, Button } from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
 
+let content = ''
 export default class AddNote extends React.Component {
     constructor(props) {
         super(props);
         this.state = { title: '', content: '' };
     }
 
+
     async handleSubmit(e) {
         e.preventDefault();
 
-        const title = document.querySelector('input[name="title"]').value;
-        const content = document.querySelector('textarea[name="content"]').value;
-      
+        const title = document.querySelector('Input[name="title"]').value;
+
+        if (title === '' || content === '') {
+          return alert('Please fill in all fields');
+        }
+
         const response = await fetch(`http://localhost:5000/notes`, {
           method: 'POST',
           body: JSON.stringify({
@@ -33,10 +39,39 @@ export default class AddNote extends React.Component {
     render() {
         return (
             <form className="form-input" onSubmit={this.handleSubmit}>
-               <div><span>Title <input type="text" name="title" /></span></div>
-               <div><textarea rows='8' cols='55' className="form-textarea" name="content" /></div>             
-                <button type="submit">Add Note</button>
+              <div className="div">
+              <FormControl>
+                <InputLabel htmlFor="title">Title</InputLabel>
+                <Input type="text" name="title" />
+              </FormControl>
+              </div>
+              <br/>
+              <div className="div">
+              <FormControl>
+                  <TextField 
+                    multiline={true}
+                    rows={10}
+                    // fullWidth={true}
+                    className="custom-textfield"
+                    label="Content" 
+                    name="content" 
+                    variant="outlined" 
+                    onChange={(event) => content = event.target.value}
+                  />
+              </FormControl>
+              </div>
+              <br/>
+              <div className="flex-row justify-space-around">
+                <Button 
+                  size="small"
+                  color="success"
+                  variant="contained"
+                  startIcon={<AddIcon />}
+                  type="submit">Add Note</Button>
+              </div>
+              
             </form>
+            
         );
     }
 }
