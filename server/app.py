@@ -29,7 +29,7 @@ def create_app(test_config=None):
   # set up app config
   app = Flask(__name__)
   CORS(app)
-  app.config['SQLALCHEMY_DATABASE_URI'] = getenv('DB_HOST')
+  app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:vardis1base@localhost:3307/nova_db'
   db = SQLAlchemy(app)
   app.url_map.strict_slashes = False
   app.config.from_mapping(
