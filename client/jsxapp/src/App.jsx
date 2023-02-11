@@ -1,23 +1,23 @@
-import { useState, useEffect } from 'react'
+// import { useState, useEffect } from 'react'
 import Notes from './components/Notes'
 import AddNote from './components/AddNote'
 import './assets/style.css'
 function App() {
   
-  const [notes, setNotes] = useState([])
-  const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
-  const [id, setId] = useState('')
+  // const [notes, setNotes] = useState([])
+  // const [title, setTitle] = useState('')
+  // const [content, setContent] = useState('')
+  // const [id, setId] = useState('')
 
-  useEffect(() => {
-    // const url = 'http://localhost:5000/notes'
-    const url = '/api'
-    fetch(url)
-      .then(res => res.json())
-      .then(data => {
-        setNotes(data)
-      })
-  }, [])
+  // useEffect(() => {
+  //   // const url = 'http://localhost:5000/notes'
+  //   const url = '/api'
+  //   fetch(url)
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setNotes(data)
+  //     })
+  // }, [])
 
 
 
