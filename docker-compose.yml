@@ -8,12 +8,11 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: vardis1base
     ports:
-      - 3307:3307
+      - 3307:3306
     volumes:
       - db:/var/lib/mysql 
     networks:
       - server
-      - web
 
   server:
     build: ./server
@@ -33,6 +32,9 @@ services:
       - db
     volumes:
       - ./server:/app
+    networks:
+      - server
+      - web
 
   web:
     build: ./client/jsxapp
@@ -46,6 +48,8 @@ services:
       - REACT_APP_API_URL=http://localhost:5000
     depends_on:
       - server 
+    networks:
+      - web
     
 networks:
   server:

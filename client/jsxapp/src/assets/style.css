@@ -1,9 +1,9 @@
 :root {
   --primary: #ccdad1;
-  --secondary: #9caea9;
-  --tertiary: #788585;
-  --light-dark: #6f6866;
-  --dark: #38302e;
+  --secondary: #C5E4EA;
+  --tertiary: #230334;
+  --light-dark: #6786b7;
+  --dark: #137DC2;
   --border-radius: .3rem;
 }
 
@@ -199,6 +199,9 @@ p {
   color: var(--tertiary);
 }
 
+.custom-textfield {
+  width: 300px;
+}
 
 /* FLEX CONTENT */
 .flex-row {

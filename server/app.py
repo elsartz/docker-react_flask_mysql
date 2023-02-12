@@ -39,11 +39,11 @@ def create_app(test_config=None):
 
   init_db(app)
 
-  @app.route('/api')
+  @app.route('/')
   def index():
     return app.send_static_file('index.html')
 
-  @app.route('/api/notes', methods=['GET'])
+  @app.route('/notes', methods=['GET'])
   def get_notes():
     dbase = get_db()
     notes = dbase.query(Note).all()
@@ -53,7 +53,7 @@ def create_app(test_config=None):
 
     return jsonify(json_data)
 
-  @app.route('/api/notes', methods=['POST'])
+  @app.route('/notes', methods=['POST'])
   def add_note():
     data = request.get_json()
     title = data.get('title')
@@ -63,7 +63,7 @@ def create_app(test_config=None):
     db.session.commit()
     return jsonify({'message': 'note added successfully'})
 
-  @app.route('/api/notes/<id>', methods=['PUT'])
+  @app.route('/notes/<id>', methods=['PUT'])
   def update_note(id):
     data = request.get_json()
     title = data.get('title')
@@ -74,7 +74,7 @@ def create_app(test_config=None):
     db.session.commit()
     return jsonify({'message': 'note updated successfully'})
 
-  @app.route('/api/notes/<id>', methods=['DELETE'])
+  @app.route('/notes/<id>', methods=['DELETE'])
   def delete_note(id):
     dbase = get_db()
     # note = Note.query.get(id)
@@ -89,5 +89,5 @@ def create_app(test_config=None):
 
   
 
-  return app.run(debug=True, host='0.0.0.0:5000')
+  return app.run(debug=True, host='0.0.0.0', port=5000)
 
