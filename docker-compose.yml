@@ -1,0 +1,59 @@
+version: '3.9'
+
+services:
+
+  db:
+    image: mysql/mysql-server:latest
+    env_file: ./.env
+    environment:
+      MYSQL_ROOT_PASSWORD: vardis1base
+    ports:
+      - 3307:3306
+    volumes:
+      - db:/var/lib/mysql 
+    networks:
+      - server
+
+  server:
+    build: ./server
+    env_file: ./.env
+    ports:
+      - 80:5000
+    environment:
+      - DB_URL=mysql+pymysql://root:vardis1base@localhost:3307/nova_db
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=vardis1base
+      - DB_NAME=nova_db
+      # - DB_PORT=33060
+      - CLIENT_ORIGIN=http://127.0.0.1:5000
+      
+    depends_on:
+      - db
+    volumes:
+      - ./server:/app
+    networks:
+      - server
+      - web
+
+  web:
+    build: ./client/jsxapp
+    ports:
+      - 3000:3000
+    volumes:
+      - ./client/jsxapp:/user/src/app
+    environment:
+    # - NODE_ENV=production
+      - NODE_ENV=development
+      - REACT_APP_API_URL=http://localhost:5000
+    depends_on:
+      - server 
+    networks:
+      - web
+    
+networks:
+  server:
+  web:
+    
+volumes:
+  db:
